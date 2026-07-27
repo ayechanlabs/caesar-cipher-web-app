@@ -1,13 +1,18 @@
 .cipher_container {
     width: 100%;
-    height: 70vh;
+    min-height: 70vh;
 
     border: 1px solid #000000;
     border-radius: 10px;
     
     margin-top: 20px;
 
-    display: flex;
+    overflow: hidden;
+}
+
+.controls_wrapper {
+    border-top: 1px solid #000000;
+    background-color: #f8f9fa;
 }
 
 .input_container, .output_container {
@@ -19,32 +24,36 @@
 }
 
 .input_container h5, .output_container h5 {
-    width: calc(100% + 24px) !important;
-
     border-bottom: 1px solid #000000;
-
-    padding: 15px 0 15px 0;
-    margin-left: -12px !important;
-    margin-right: -12px !important;
+    padding: 15px 0;
 }
 
 .cipher_textarea {
     border: none;
     border-radius: 0;
+    box-shadow: none;
     resize: none;
 
-    margin-top: 10px;
-    margin-bottom: 10px;
+    padding: 10px;
 }
 
 .cipher_textarea:focus {
     box-shadow: none;
 }
 
-#inputText {
-    padding: 0 10px 0 0;
-}
+@media (max-width: 768px) {
+    .input_container {
+        border-right: none;
+        border-bottom: 1px solid #000000;
+    }
 
-#outputText {
-    padding: 0 10px;
+    .input_container h5, .output_container h5 {
+        font-size: 0.95rem;
+        padding: 10px 0;
+    }
+
+    .cipher_textarea {
+        min-height: 140px;
+        font-size: 0.9rem;
+    }
 }
