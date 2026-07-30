@@ -14,6 +14,7 @@
 .cipher_container {
     width: 100%;
     min-height: 70vh;
+    background-color: rgba(255, 255, 255, 0.6);
 
     border: 1px solid #000000;
     border-radius: 10px;
@@ -24,8 +25,9 @@
 }
 
 .controls_wrapper {
+    background-color: rgba(248, 249, 250, 0.7);
+
     border-top: 1px solid #000000;
-    background-color: #f8f9fa;
 }
 
 .input_container, .output_container {
@@ -41,7 +43,12 @@
     padding: 15px 0;
 }
 
-.cipher_textarea {
+.cipher_textarea, .cipher_textarea[readonly] {
+    background-color: transparent !important;
+    color: #000000;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 16 24"><path fill="%23000000" d="M 7 2 L 7 5 L 9 5 L 9 2 Z M 7 19 L 7 22 L 9 22 L 9 19 Z M 7 5 L 7 19 L 9 19 L 9 5 Z M 4 2 L 4 4 L 12 4 L 12 2 Z M 4 20 L 4 22 L 12 22 L 12 20 Z"/></svg>') 8 12, text !important;
+    caret-color: #000000;
+
     border: none;
     border-radius: 0;
     box-shadow: none;
@@ -51,7 +58,12 @@
 }
 
 .cipher_textarea:focus {
+    background-color: transparent !important;
     box-shadow: none;
+}
+
+.cipher_textarea:hover {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 16 24"><path fill="%23000000" d="M 7 2 L 7 5 L 9 5 L 9 2 Z M 7 19 L 7 22 L 9 22 L 9 19 Z M 7 5 L 7 19 L 9 19 L 9 5 Z M 4 2 L 4 4 L 12 4 L 12 2 Z M 4 20 L 4 22 L 12 22 L 12 20 Z"/></svg>') 8 12, text !important;
 }
 
 .mode-toggle-wrapper {
@@ -87,7 +99,7 @@
 
 .mode-fade-out {
     opacity: 0 !important;
-    transform: translateY(-px);
+    transform: translateY(-8px);
 }
 
 @media (max-width: 430px) {
