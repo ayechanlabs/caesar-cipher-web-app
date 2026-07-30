@@ -1,7 +1,7 @@
 #banner {
     width: 100%;
     height: 100%;
-    background-color: #f8f9fa;
+    background-color: var(--bs-body-bg);
 
     position: fixed;
     top: 0;
@@ -15,6 +15,7 @@
     width: 100%;
     min-height: 70vh;
     background-color: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(1.5px);
 
     border: 1px solid #000000;
     border-radius: 10px;
@@ -24,10 +25,30 @@
     overflow: hidden;
 }
 
+[data-bs-theme="dark"] .cipher_container {
+    background-color: rgba(33, 37, 41, 0.6);
+    border-color: var(--bs-border-color);
+}
+
 .controls_wrapper {
-    background-color: rgba(248, 249, 250, 0.7);
+    background-color: transparent;
 
     border-top: 1px solid #000000;
+}
+
+[data-bs-theme="dark"] .controls_wrapper {
+    background-color: transparent;
+    border-top-color: var(--bs-border-color);
+}
+
+#shiftKey {
+    background-color: transparent !important;
+    color: var(--bs-body-color) !important;
+    border-color: #000000;
+}
+
+[data-bs-theme="dark"] #shiftKey {
+    border-color: var(--bs-border-color);
 }
 
 .input_container, .output_container {
@@ -38,16 +59,24 @@
     border-right: 1px solid #000000;
 }
 
+[data-bs-theme="dark"] .input_container {
+    border-right-color: var(--bs-border-color);
+}
+
 .input_container h5, .output_container h5 {
     border-bottom: 1px solid #000000;
     padding: 15px 0;
 }
 
-.cipher_textarea, .cipher_textarea[readonly] {
+[data-bs-theme="dark"] .input_container h5,
+[data-bs-theme="dark"] .output_container h5 {
+    border-bottom-color: var(--bs-border-color);
+}
+
+.cipher_textarea, .cipher_textarea[readonly], .form-control.cipher_textarea, .form-control.cipher_textarea[readonly] {
     background-color: transparent !important;
-    color: #000000;
-    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 16 24"><path fill="%23000000" d="M 7 2 L 7 5 L 9 5 L 9 2 Z M 7 19 L 7 22 L 9 22 L 9 19 Z M 7 5 L 7 19 L 9 19 L 9 5 Z M 4 2 L 4 4 L 12 4 L 12 2 Z M 4 20 L 4 22 L 12 22 L 12 20 Z"/></svg>') 8 12, text !important;
-    caret-color: #000000;
+    color: var(--bs-body-color);
+    caret-color: var(--bs-body-color);
 
     border: none;
     border-radius: 0;
@@ -56,6 +85,9 @@
 
     padding: 10px;
     padding-right: 42px !important;
+
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 .cipher_textarea:focus {
@@ -67,9 +99,13 @@
     cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 16 24"><path fill="%23000000" d="M 7 2 L 7 5 L 9 5 L 9 2 Z M 7 19 L 7 22 L 9 22 L 9 19 Z M 7 5 L 7 19 L 9 19 L 9 5 Z M 4 2 L 4 4 L 12 4 L 12 2 Z M 4 20 L 4 22 L 12 22 L 12 20 Z"/></svg>') 8 12, text !important;
 }
 
+[data-bs-theme="dark"] .cipher_textarea:hover {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 16 24"><path fill="%23ffffff" d="M 7 2 L 7 5 L 9 5 L 9 2 Z M 7 19 L 7 22 L 9 22 L 9 19 Z M 7 5 L 7 19 L 9 19 L 9 5 Z M 4 2 L 4 4 L 12 4 L 12 2 Z M 4 20 L 4 22 L 12 22 L 12 20 Z"/></svg>') 8 12, text !important;
+}
+
 .textarea-icon-btn {
     background: transparent;
-    color: #495057;
+    color: var(--bs-secondary-color);
     font-size: 1.1rem;
     cursor: pointer;
 
@@ -86,8 +122,8 @@
 }
 
 .textarea-icon-btn:hover {
-    color: #000000;
-    background-color: rgba(0, 0, 0, 0.08);
+    color: var(--bs-body-color);
+    background-color: var(--bs-tertiary-bg);
 }
 
 .textarea-icon-btn:active {
@@ -115,7 +151,7 @@
 }
 
 .mode-label.active {
-    color: #000000;
+    color: var(--bs-body-color);
 }
 
 .mode-label.text-muted {
@@ -137,14 +173,14 @@
     }
 
     #labelDecrypt {
-        color: #000000 !important;
+        color: var(--bs-body-color) !important;
     }
 }
 
 @media (max-width: 768px) {
     .input_container {
         border-right: none;
-        border-bottom: 1px solid #000000;
+        border-bottom: 1px solid var(--bs-border-color);
     }
 
     .input_container h5, .output_container h5 {
@@ -155,5 +191,8 @@
     .cipher_textarea {
         min-height: 140px;
         font-size: 0.9rem;
+
+        overflow-wrap: break-word;
+        word-break: break-word;
     }
 }

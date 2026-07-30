@@ -1,3 +1,28 @@
+const themeToggleBtn = document.querySelector("#themeToggleBtn");
+const themeIcon = document.querySelector("#themeIcon");
+
+const savedTheme = localStorage.getItem("theme") || "light";
+setTheme(savedTheme);
+
+function setTheme(theme) {
+    document.documentElement.setAttribute("data-bs-theme", theme);
+
+    localStorage.setItem("theme", theme);
+
+    if (theme === "dark") {
+        themeIcon.className = "fa-solid fa-sun";
+    }
+    else {
+        themeIcon.className = "fa-solid fa-moon";
+    }
+}
+
+themeToggleBtn.addEventListener("click", () => {
+    const currTheme = document.documentElement.getAttribute("data-bs-theme");
+    const nextTheme = currTheme === "dark" ? "light" : "dark";
+    setTheme(nextTheme);
+})
+
 const 
 modeToggle = document.querySelector("#modeToggle"),
 labelEncrypt = document.querySelector("#labelEncrypt"),
@@ -143,8 +168,8 @@ labelDecrypt.addEventListener("click", () => {
 })
 
 actionBtn.addEventListener('click', executeCaesarCipher);
-// inputTxt.addEventListener('input', executeCaesarCipher);
-// shiftKey.addEventListener('input', executeCaesarCipher);
+inputTxt.addEventListener('input', executeCaesarCipher);
+shiftKey.addEventListener('input', executeCaesarCipher);
 
 updateUI(false);
 
