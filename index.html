@@ -8,6 +8,9 @@
     <!-- fav icon -->
     <link href="./img/devops.png" rel="icon" type="image/png" sizes="32x32" />
 
+    <!-- fontawesome css1 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
     <!-- bootstrap css1 js1 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 
@@ -47,12 +50,22 @@
             <div class="row g-0 w-100 flex-grow-1 flex-column flex-md-row">
                 <div class="col-12 col-md-6 d-flex flex-column p-0 input_container">
                     <h5 id="inputHeading" class="text-center m-0">Plain Text</h5>
-                    <textarea id="inputText" class="form-control flex-grow-1 cipher_textarea" placeholder="Type message here..."></textarea>
+                    <div class="textarea-wrapper flex-grow-1 position-relative d-flex flex-column">
+                        <textarea id="inputText" class="form-control flex-grow-1 cipher_textarea" placeholder="Type message here..."></textarea>
+                        <button type="button" id="clearBtn" class="textarea-icon-btn" title="Clear text">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    </div>
                 </div>
 
                 <div class="col-12 col-md-6 d-flex flex-column p-0 output_container">
                     <h5 id="outputHeading" class="text-center m-0">Encrypted Text</h5>
-                    <textarea id="outputText" class="form-control flex-grow-1 cipher_textarea" readonly placeholder="Encrypted result..."></textarea>
+                    <div class="textarea-wrapper flex-grow-1 position-relative d-flex flex-column">
+                        <textarea id="outputText" class="form-control flex-grow-1 cipher_textarea" readonly placeholder="Encrypted result..."></textarea>
+                        <button type="button" id="copyBtn" class="textarea-icon-btn" title="Copy text">
+                            <i class="fa-regular fa-copy"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
 

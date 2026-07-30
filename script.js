@@ -9,7 +9,10 @@ inputTxt = document.querySelector("#inputText"),
 outputTxt = document.querySelector("#outputText"),
 
 shiftKey = document.querySelector("#shiftKey"),
-actionBtn = document.querySelector("#actionBtn");
+actionBtn = document.querySelector("#actionBtn"),
+
+clearBtn = document.querySelector("#clearBtn"),
+copyBtn = document.querySelector("#copyBtn");
 
 let currentMode = "encrypt";
 
@@ -82,20 +85,41 @@ function updateUI(animate = false) {
     };
 
     if (animate) {
-        // Trigger fade out
         animatedElements.forEach(el => el.classList.add("mode-fade-out"));
 
         setTimeout(() => {
             applyTextUpdates();
-            // Trigger fade in
             animatedElements.forEach(el => el.classList.remove("mode-fade-out"));
         }, 150);
     } 
     else {
-        // Instant update without animation (for page load and resize)
         applyTextUpdates();
     }
 }
+
+clearBtn.addEventListener("click", () => {
+    inputTxt.value = "";
+    outputTxt.value = "";
+    inputTxt.focus();
+});
+
+copyBtn.addEventListener("click", async () => {
+    if (!outputTxt.value) return;
+
+    try {
+        await navigator.clipboard.writeText(outputTxt.value);
+
+        const iconTag = copyBtn.querySelector("i");
+        iconTag.className = "fa-solid fa-check text-success";
+
+        setTimeout(() => {
+            iconTag.className = "fa-regular fa-copy";
+        }, 1500);
+    }
+    catch (err) {
+        console.error("Failed to copy text:", err);
+    }
+});
 
 modeToggle.addEventListener("change", () => {
     inputTxt.value = "";
@@ -103,6 +127,20 @@ modeToggle.addEventListener("change", () => {
 
     updateUI(true);
 });
+
+labelEncrypt.addEventListener("click", () => {
+    if (modeToggle.checked) {
+        modeToggle.checked = false;
+        modeToggle.dispatchEvent(new Event("change"));
+    }
+});
+
+labelDecrypt.addEventListener("click", () => {
+    if (!modeToggle.checked) {
+        modeToggle.checked = true;
+        modeToggle.dispatchEvent(new Event("change"));
+    }
+})
 
 actionBtn.addEventListener('click', executeCaesarCipher);
 // inputTxt.addEventListener('input', executeCaesarCipher);
