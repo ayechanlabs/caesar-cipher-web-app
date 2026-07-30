@@ -1,3 +1,16 @@
+#banner {
+    width: 100%;
+    height: 100%;
+    background-color: #f8f9fa;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    z-index: -1;
+    pointer-events: none;
+}
+
 .cipher_container {
     width: 100%;
     min-height: 70vh;
@@ -39,6 +52,52 @@
 
 .cipher_textarea:focus {
     box-shadow: none;
+}
+
+.mode-toggle-wrapper {
+    user-select: none;
+}
+
+.mode-toggle-wrapper .form-switch {
+    min-height: auto;
+}
+
+.mode-toggle-wrapper .form-check-input {
+    width: 2.5em;
+    height: 1.25em;
+
+    cursor: pointer;
+}
+
+.mode-label {
+    transition: color 0.2s ease-in-out, opacity 0.25s ease-in-out;
+}
+
+.mode-label.active {
+    color: #000000;
+}
+
+.mode-label.text-muted {
+    color: #6c757d !important;
+}
+
+#inputHeading, #outputHeading, #actionBtn, #labelDecrypt, #labelEncrypt {
+    transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.mode-fade-out {
+    opacity: 0 !important;
+    transform: translateY(-px);
+}
+
+@media (max-width: 430px) {
+    #labelEncrypt {
+        display: none !important;
+    }
+
+    #labelDecrypt {
+        color: #000000 !important;
+    }
 }
 
 @media (max-width: 768px) {
