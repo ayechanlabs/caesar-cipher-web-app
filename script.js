@@ -174,3 +174,12 @@ shiftKey.addEventListener('input', executeCaesarCipher);
 updateUI(false);
 
 window.addEventListener("resize", () => updateUI(false));
+
+const charCount = document.querySelector("#charCount");
+
+inputTxt.addEventListener("input", () => {
+    executeCaesarCipher();
+    if (charCount) {
+        charCount.textContent = `${inputTxt.value.length} chars`;
+    }
+});
