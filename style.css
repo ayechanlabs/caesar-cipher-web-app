@@ -196,3 +196,11 @@
         word-break: break-word;
     }
 }
+
+@media (min-width: 768px) {
+    #actionBtn {
+        height: 62px;
+        font-size: 1.1rem;
+        font-weight: 600;
+    }
+}

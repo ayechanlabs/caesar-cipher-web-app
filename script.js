@@ -69,6 +69,27 @@ function executeCaesarCipher() {
     outputTxt.value = caesarCipher(plainTxt, shift, currentMode);
 }
 
+const shiftPreview = document.querySelector("#shiftPreview");
+function updateShiftPreview() {
+    if (!shiftPreview) return;
+
+    let shift = parseInt(shiftKey.value) || 0;
+
+    if (currentMode === "decrypt") {
+        shift = (26 - (shift % 26)) % 26;
+    }
+
+    const samples = ['A', 'B', 'C'];
+    const mapping = samples.map(char => {
+        const charCode = char.charCodeAt(0);
+        const shiftedCode = ((charCode - 65 + shift) % 26) + 65;
+        return `${char} -> ${String.fromCharCode(shiftedCode)}`;
+    }).join(' | ');
+
+    shiftPreview.textContent = mapping;
+}
+updateShiftPreview();
+
 function updateUI(animate = false) {
     const isDecrypt = modeToggle.checked;
     const isMobile = window.innerWidth <= 430;
@@ -120,6 +141,8 @@ function updateUI(animate = false) {
     else {
         applyTextUpdates();
     }
+
+    updateShiftPreview();
 }
 
 clearBtn.addEventListener("click", () => {
@@ -169,7 +192,10 @@ labelDecrypt.addEventListener("click", () => {
 
 actionBtn.addEventListener('click', executeCaesarCipher);
 inputTxt.addEventListener('input', executeCaesarCipher);
-shiftKey.addEventListener('input', executeCaesarCipher);
+shiftKey.addEventListener('input', () => {
+    executeCaesarCipher();
+    updateShiftPreview();
+});
 
 updateUI(false);
 
