@@ -24,6 +24,7 @@ themeToggleBtn.addEventListener("click", () => {
     setTheme(nextTheme);
 })
 
+// Declare All Variables
 const 
 modeToggle = document.querySelector("#modeToggle"),
 labelEncrypt = document.querySelector("#labelEncrypt"),
@@ -37,14 +38,18 @@ outputTxt = document.querySelector("#outputText"),
 shiftKey = document.querySelector("#shiftKey"),
 actionBtn = document.querySelector("#actionBtn"),
 
+charCount = document.querySelector("#charCount"),
 clearBtn = document.querySelector("#clearBtn"),
-copyBtn = document.querySelector("#copyBtn"), 
+copyBtn = document.querySelector("#copyBtn"),
+
+shiftPreview = document.querySelector("#shiftPreview"),
 
 bruteForceWrapper = document.querySelector("#bruteForceContainer"), 
 bruteForceToggle = document.querySelector("#bruteForceToggle"), 
 bruteForceResults = document.querySelector("#bruteForceResults"), 
 bruteForceList = document.querySelector("#bruteForceList");
 
+// Start Caesar Cipher Encryption/Decryption
 let currentMode = "encrypt";
 
 function caesarCipher (originalText, shiftKey, mode) {
@@ -73,9 +78,14 @@ function executeCaesarCipher() {
     const plainTxt = inputTxt.value;
     const shift = parseInt(shiftKey.value);
     outputTxt.value = caesarCipher(plainTxt, shift, currentMode);
-}
 
-const shiftPreview = document.querySelector("#shiftPreview");
+    if (currentMode === "decrypt" && bruteForceToggle && bruteForceToggle.checked) {
+        bruteForceDecryption();
+    }
+}
+// End Caesar Cipher Encrytion/Decryption
+
+// Start - this function will show the user, how characters shifted based on the key input.
 function updateShiftPreview() {
     if (!shiftPreview) return;
 
@@ -95,7 +105,9 @@ function updateShiftPreview() {
     shiftPreview.textContent = mapping;
 }
 updateShiftPreview();
+// End - this function will show the user, how characters shifted based on the key input
 
+// Start - this function will decode the cipher, when user doesn't know the key with all possible key sets.
 function bruteForceDecryption() {
     if (!bruteForceToggle.checked) return;
 
@@ -144,7 +156,7 @@ function bruteForceDecryption() {
 function escapeHTML(str) {
     return str
     .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt")
+    .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#039;");
@@ -157,6 +169,63 @@ bruteForceToggle.addEventListener("change", () => {
     }
     else {
         bruteForceResults.classList.add("d-none");
+    }
+});
+// End - this function will decode the cipher, when user doesn't know the key with all possible key sets.
+
+clearBtn.addEventListener("click", () => {
+    inputTxt.value = "";
+    outputTxt.value = "";
+
+    if (charCount) {
+        charCount.textContent = "0 chars";
+    }
+
+    inputTxt.focus();
+});
+
+copyBtn.addEventListener("click", async () => {
+    if (!outputTxt.value) return;
+
+    try {
+        await navigator.clipboard.writeText(outputTxt.value);
+
+        const iconTag = copyBtn.querySelector("i");
+        iconTag.className = "fa-solid fa-check text-success";
+
+        setTimeout(() => {
+            iconTag.className = "fa-regular fa-copy";
+        }, 1500);
+    }
+    catch (err) {
+        console.error("Failed to copy text:", err);
+    }
+});
+
+modeToggle.addEventListener("change", () => {
+    inputTxt.value = "";
+    outputTxt.value = "";
+
+    shiftKey.value = 3;
+
+    if (charCount) {
+        charCount.textContent = "0 chars";
+    }
+
+    updateUI(true);
+});
+
+labelEncrypt.addEventListener("click", () => {
+    if (modeToggle.checked) {
+        modeToggle.checked = false;
+        modeToggle.dispatchEvent(new Event("change"));
+    }
+});
+
+labelDecrypt.addEventListener("click", () => {
+    if (!modeToggle.checked) {
+        modeToggle.checked = true;
+        modeToggle.dispatchEvent(new Event("change"));
     }
 });
 
@@ -226,55 +295,17 @@ function updateUI(animate = false) {
     updateShiftPreview();
 }
 
-clearBtn.addEventListener("click", () => {
-    inputTxt.value = "";
-    outputTxt.value = "";
-    inputTxt.focus();
-});
-
-copyBtn.addEventListener("click", async () => {
-    if (!outputTxt.value) return;
-
-    try {
-        await navigator.clipboard.writeText(outputTxt.value);
-
-        const iconTag = copyBtn.querySelector("i");
-        iconTag.className = "fa-solid fa-check text-success";
-
-        setTimeout(() => {
-            iconTag.className = "fa-regular fa-copy";
-        }, 1500);
-    }
-    catch (err) {
-        console.error("Failed to copy text:", err);
-    }
-});
-
-modeToggle.addEventListener("change", () => {
-    inputTxt.value = "";
-    outputTxt.value = "";
-
-    shiftKey.value = 3;
-
-    updateUI(true);
-});
-
-labelEncrypt.addEventListener("click", () => {
-    if (modeToggle.checked) {
-        modeToggle.checked = false;
-        modeToggle.dispatchEvent(new Event("change"));
-    }
-});
-
-labelDecrypt.addEventListener("click", () => {
-    if (!modeToggle.checked) {
-        modeToggle.checked = true;
-        modeToggle.dispatchEvent(new Event("change"));
-    }
-})
-
 actionBtn.addEventListener('click', executeCaesarCipher);
-inputTxt.addEventListener('input', executeCaesarCipher);
+
+inputTxt.addEventListener("input", () => {
+    executeCaesarCipher();
+
+    if (charCount) {
+        charCount.textContent = `${inputTxt.value.length} chars`;
+    }
+    bruteForceDecryption();
+});
+
 shiftKey.addEventListener('input', () => {
     executeCaesarCipher();
     updateShiftPreview();
@@ -283,13 +314,3 @@ shiftKey.addEventListener('input', () => {
 updateUI(false);
 
 window.addEventListener("resize", () => updateUI(false));
-
-const charCount = document.querySelector("#charCount");
-
-inputTxt.addEventListener("input", () => {
-    executeCaesarCipher();
-    if (charCount) {
-        charCount.textContent = `${inputTxt.value.length} chars`;
-    }
-    bruteForceDecryption();
-});
