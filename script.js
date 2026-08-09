@@ -41,6 +41,7 @@ shiftKey = document.querySelector("#shiftKey"),
 actionBtn = document.querySelector("#actionBtn"),
 
 charCount = document.querySelector("#charCount"),
+wordCount = document.querySelector("#wordCount"),
 clearBtn = document.querySelector("#clearBtn"),
 copyBtn = document.querySelector("#copyBtn"),
 
@@ -175,13 +176,25 @@ bruteForceToggle.addEventListener("change", () => {
 });
 // End - this function will decode the cipher, when user doesn't know the key with all possible key sets.
 
+function countWordCharStats() {
+    const text = inputTxt.value;
+
+    if (charCount) {
+        charCount.textContent = `${text.length} chars`;
+    }
+
+    if (wordCount) {
+        // Check if the text is not empty after removing outer spaces
+        const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+        wordCount.textContent = `${words} words`;
+    }
+}
+
 clearBtn.addEventListener("click", () => {
     inputTxt.value = "";
     outputTxt.value = "";
 
-    if (charCount) {
-        charCount.textContent = "0 chars";
-    }
+    countWordCharStats();
 
     inputTxt.focus();
 });
@@ -214,9 +227,7 @@ modeToggle.addEventListener("change", () => {
 
     shiftKey.value = 3;
 
-    if (charCount) {
-        charCount.textContent = "0 chars";
-    }
+    countWordCharStats();
 
     updateUI(true);
 });
@@ -279,8 +290,8 @@ function updateUI(animate = false) {
             }
         }
 
-        inputHeading.querySelector("span").textContent = isDecrypt ? "Encrypted Text" : "Plain Text";
-        outputHeading.querySelector("span").textContent = isDecrypt ? "Plain Text" : "Encrypted Text";
+        inputHeading.querySelector("span").textContent = isDecrypt ? "Encrypted" : "Plain Text";
+        outputHeading.querySelector("span").textContent = isDecrypt ? "Plain Text" : "Encrypted";
 
         if (isDecrypt) {
             inputBadge.textContent = "CIPHERTEXT";
@@ -321,10 +332,7 @@ actionBtn.addEventListener('click', executeCaesarCipher);
 
 inputTxt.addEventListener("input", () => {
     executeCaesarCipher();
-
-    if (charCount) {
-        charCount.textContent = `${inputTxt.value.length} chars`;
-    }
+    countWordCharStats();
     bruteForceDecryption();
 });
 
