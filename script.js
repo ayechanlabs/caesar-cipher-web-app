@@ -1,3 +1,4 @@
+// Dark Mode to Light Mode
 const themeToggleBtn = document.querySelector("#themeToggleBtn");
 const themeIcon = document.querySelector("#themeIcon");
 
@@ -37,7 +38,12 @@ shiftKey = document.querySelector("#shiftKey"),
 actionBtn = document.querySelector("#actionBtn"),
 
 clearBtn = document.querySelector("#clearBtn"),
-copyBtn = document.querySelector("#copyBtn");
+copyBtn = document.querySelector("#copyBtn"), 
+
+bruteForceWrapper = document.querySelector("#bruteForceContainer"), 
+bruteForceToggle = document.querySelector("#bruteForceToggle"), 
+bruteForceResults = document.querySelector("#bruteForceResults"), 
+bruteForceList = document.querySelector("#bruteForceList");
 
 let currentMode = "encrypt";
 
@@ -90,11 +96,86 @@ function updateShiftPreview() {
 }
 updateShiftPreview();
 
+function bruteForceDecryption() {
+    if (!bruteForceToggle.checked) return;
+
+    const text = inputTxt.value;
+    bruteForceList.innerHTML = "";
+
+    if (!text?.trim()) {
+        bruteForceList.innerHTML = `<div class="p-3 text-muted">Type a message above to see all shifts...</div>`;
+        return;
+    }
+
+    for (let shift = 1; shift <= 25; shift++) {
+        const decryptTxt = caesarCipher(text, shift, "decrypt");
+
+        const item = document.createElement("div");
+        item.className = "list-group-item d-flex align-items-center justify-content-between gap-2";
+
+        item.innerHTML = 
+        `
+        <div>
+            <span class="badge bg-secondary me-2">Shift ${shift}</span>
+            <span>${escapeHTML(decryptTxt)}</span>
+        </div>
+        <button class="btn btn-sm btn-outline-primary copy-shift-btn" data-text="${escapeHTML(decryptTxt)}" title="Copy Result">
+            <i class="fa-regular fa-copy"></i>
+        </button>
+        `;
+
+        bruteForceList.appendChild(item);
+    }
+
+    bruteForceList.querySelectorAll(".copy-shift-btn").forEach(btn => {
+        btn.addEventListener("click", async (e) => {
+            const textToCopy = e.currentTarget.getAttribute("data-text");
+            await navigator.clipboard.writeText(textToCopy);
+
+            const iconTag = e.currentTarget.querySelector("i");
+            iconTag.className = "fa-solid fa-check text-success";
+            setTimeout(() => {
+                iconTag.className = 'fa-regular fa-copy';
+            }, 1500);
+        });
+    });
+}
+
+function escapeHTML(str) {
+    return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+bruteForceToggle.addEventListener("change", () => {
+    if (bruteForceToggle.checked) {
+        bruteForceResults.classList.remove("d-none");
+        bruteForceDecryption();
+    }
+    else {
+        bruteForceResults.classList.add("d-none");
+    }
+});
+
 function updateUI(animate = false) {
     const isDecrypt = modeToggle.checked;
     const isMobile = window.innerWidth <= 430;
 
     currentMode = isDecrypt ? "decrypt" : "encrypt";
+
+    if (bruteForceWrapper) {
+        if (isDecrypt) {
+            bruteForceWrapper.classList.remove("d-none");
+        }
+        else {
+            bruteForceWrapper.classList.add("d-none");
+            bruteForceToggle.checked = false;
+            bruteForceResults.classList.add("d-none");
+        }
+    }
 
     const animatedElements = [inputHeading, outputHeading, actionBtn, labelDecrypt, labelEncrypt];
 
@@ -173,6 +254,8 @@ modeToggle.addEventListener("change", () => {
     inputTxt.value = "";
     outputTxt.value = "";
 
+    shiftKey.value = 3;
+
     updateUI(true);
 });
 
@@ -208,4 +291,5 @@ inputTxt.addEventListener("input", () => {
     if (charCount) {
         charCount.textContent = `${inputTxt.value.length} chars`;
     }
+    bruteForceDecryption();
 });

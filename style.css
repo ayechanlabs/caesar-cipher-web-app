@@ -167,6 +167,19 @@
     transform: translateY(-8px);
 }
 
+#bruteForceList .list-group-item {
+    background-color: transparent;
+    color: var(--bs-body-color);
+    font-family: monospace;
+    font-size: 0.9rem;
+
+    border-color: var(--bs-border-color);
+
+    transition: background-color 0.15s ease;
+}
+
+
+
 @media (max-width: 430px) {
     #labelEncrypt {
         display: none !important;

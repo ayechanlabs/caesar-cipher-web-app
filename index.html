@@ -28,7 +28,7 @@
                     <span class="fw-bold fs-6 fs-md-5">Caesar Cipher</span>
                 </a>
 
-                <div class="mode-toggle-wrapper d-flex align-items-center gap-2 my-2 my-md-0 fw-bold fs-7 fs-md-6">
+                <div class="mode-toggle-wrapper d-flex align-items-center gap-2 my-2 my-md-0 fw-bold fs-6 fs-md-6">
                     <span id="labelEncrypt" class="mode-label active">Encryption</span>
                     <div class="form-check form-switch m-0 p-0 d-flex align-items-center">
                         <input class="form-check-input ms-0" type="checkbox" role="switch" id="modeToggle">
@@ -55,7 +55,7 @@
                     <h5 id="inputHeading" class="text-center m-0">Plain Text</h5>
                     <div class="textarea-wrapper flex-grow-1 position-relative d-flex flex-column">
                         <textarea id="inputText" class="form-control flex-grow-1 cipher_textarea" placeholder="Type message here..."></textarea>
-                        <div class="position-absolute bottom-0 end-0 p-2 text-muted fs-7 opacity-75" id="charCount">
+                        <div class="position-absolute bottom-0 end-0 p-2 text-muted fs-6 opacity-75" id="charCount">
                             0 chars
                         </div>
                         <button type="button" id="clearBtn" class="textarea-icon-btn" title="Clear text">
@@ -80,11 +80,27 @@
                     <div class="col-12 col-md-9">
                         <label for="shiftKey" class="form-label fw-bold mb-1">Shift Amount (1-25):</label>
                         <input type="number" id="shiftKey" class="form-control" value="3" min="1" max="25">
-                        <small id="shiftPreview" class="text-muted d-block mt-1 fs-7">A -> D | B -> E | C -> F</small>
+                        <small id="shiftPreview" class="text-muted d-block mt-1 fs-6">A -> D | B -> E | C -> F</small>
                     </div>
                 
                     <div class="col-12 col-md-3">
                         <button id="actionBtn" class="btn btn-primary w-100">Encrypt</button>
+                    </div>
+
+                    <div id="bruteForceContainer" class="d-none mt-3 pt-2 border-top">
+                        <div class="d-flex align-items-center justify-content-between border-top mt-3 pt-2">
+                            <div class="form-check form-switch m-0">
+                                <input class="form-check-input" type="checkbox" id="bruteForceToggle" />
+                                <label class="form-check-label fw-bold ms-2" for="bruteForceToggle">Try All Shifts (Brute Force)</label>
+                            </div>
+                        </div>
+
+                        <div id="bruteForceResults" class="d-none mt-3">
+                            <h6 class="fw-bold mb-2">All Possible Shift Results:</h6>
+                            <div id="bruteForceList" class="list-group list-group-flush border rounded overflow-auto" style="max-height: 250px;">
+                                <!-- Inject shift rows from JS here -->
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
