@@ -14,6 +14,11 @@
     <!-- bootstrap css1 js1 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 
+    <!-- Google Fonts: Inter & Fira Code -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <!-- custom css -->
     <link href="./style.css" rel="stylesheet" type="text/css" />
 </head>
@@ -80,7 +85,10 @@
                     <div class="col-12 col-md-9">
                         <label for="shiftKey" class="form-label fw-bold mb-1">Shift Amount (1-25):</label>
                         <input type="number" id="shiftKey" class="form-control" value="3" min="1" max="25">
-                        <small id="shiftPreview" class="text-muted d-block mt-1 fs-6">A -> D | B -> E | C -> F</small>
+                        <div class="mt-2">
+                            <span id="shiftPreview" class="badge text-bg-secondary font-monospace px-2 py-1 fs-6 fw-medium border border-secondary-subtle">A -> D | B -> E | C -> F</span>
+                        </div>
+                        <!-- <small id="shiftPreview" class="text-muted d-block mt-1 fs-6">A -> D | B -> E | C -> F</small> -->
                     </div>
                 
                     <div class="col-12 col-md-3">
