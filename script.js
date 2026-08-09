@@ -34,6 +34,8 @@ inputHeading = document.querySelector("#inputHeading"),
 outputHeading = document.querySelector("#outputHeading"),
 inputTxt = document.querySelector("#inputText"),
 outputTxt = document.querySelector("#outputText"),
+inputBadge = document.querySelector("#inputBadge"),
+outputBadge = document.querySelector("#outputBadge"),
 
 shiftKey = document.querySelector("#shiftKey"),
 actionBtn = document.querySelector("#actionBtn"),
@@ -277,9 +279,25 @@ function updateUI(animate = false) {
             }
         }
 
+        inputHeading.querySelector("span").textContent = isDecrypt ? "Encrypted Text" : "Plain Text";
+        outputHeading.querySelector("span").textContent = isDecrypt ? "Plain Text" : "Encrypted Text";
+
+        if (isDecrypt) {
+            inputBadge.textContent = "CIPHERTEXT";
+            inputBadge.className = "badge badge-sm rounded-pill text-bg-warning text-white opacity-75";
+
+            outputBadge.textContent = "LIVE DECRYPTION";
+            outputBadge.className = "badge badge-sm rounded-pill text-bg-info text-white opacity-75";
+        }
+        else {
+            inputBadge.textContent = "LIVE INPUT";
+            inputBadge.className = "badge badge-sm rounded-pill text-bg-success text-white opacity-75";
+
+            outputBadge.textContent = "LIVE ENCRYPTION";
+            outputBadge.className = "badge badge-sm rounded-pill text-bg-primary text-white opacity-75";
+        }
+
         actionBtn.textContent = isDecrypt ? "Decrypt" : "Encrypt";
-        inputHeading.textContent = isDecrypt ? "Encrypted Text" : "Plain Text";
-        outputHeading.textContent = isDecrypt ? "Plain Text" : "Encrypted Text";
         inputTxt.placeholder = isDecrypt ? "Type encrypted message here..." : "Type message here...";
 
     };

@@ -78,6 +78,9 @@ body {
 }
 
 .input_container h5, .output_container h5 {
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+
     border-bottom: 1px solid #000000;
     padding: 15px 0;
 }
@@ -85,6 +88,10 @@ body {
 [data-bs-theme="dark"] .input_container h5,
 [data-bs-theme="dark"] .output_container h5 {
     border-bottom-color: var(--bs-border-color);
+}
+
+.badge-sm {
+    font-size: 0.75rem !important;
 }
 
 .cipher_textarea, .cipher_textarea[readonly], .form-control.cipher_textarea, .form-control.cipher_textarea[readonly] {
