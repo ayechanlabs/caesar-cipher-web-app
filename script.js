@@ -184,6 +184,7 @@ clearBtn.addEventListener("click", () => {
     inputTxt.focus();
 });
 
+const copyToolTip = new bootstrap.Tooltip(copyBtn);
 copyBtn.addEventListener("click", async () => {
     if (!outputTxt.value) return;
 
@@ -193,8 +194,11 @@ copyBtn.addEventListener("click", async () => {
         const iconTag = copyBtn.querySelector("i");
         iconTag.className = "fa-solid fa-check text-success";
 
+        copyToolTip.show();
+
         setTimeout(() => {
             iconTag.className = "fa-regular fa-copy";
+            copyToolTip.hide();
         }, 1500);
     }
     catch (err) {
