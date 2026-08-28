@@ -42,6 +42,7 @@ actionBtn = document.querySelector("#actionBtn"),
 
 charCount = document.querySelector("#charCount"),
 wordCount = document.querySelector("#wordCount"),
+pasteBtn = document.querySelector("#pasteBtn"),
 clearBtn = document.querySelector("#clearBtn"),
 copyBtn = document.querySelector("#copyBtn"),
 
@@ -190,6 +191,32 @@ function countWordCharStats() {
     }
 }
 
+const pasteToolTip = new bootstrap.Tooltip(pasteBtn);
+pasteBtn.addEventListener("click", async () => {
+    try {
+        const text = await navigator.clipboard.readText();
+        if (!text) return;
+
+        inputTxt.value = text;
+
+        executeCaesarCipher();
+        countWordCharStats();
+        // bruteForceDecryption();
+
+        const iconTag = pasteBtn.querySelector("i");
+        iconTag.className = "fa-solid fa-check text-success";
+        pasteToolTip.show();
+
+        setTimeout(() => {
+            iconTag.className = "fa-regular fa-paste";
+            pasteToolTip.hide();
+        }, 1500);
+    }
+    catch (err) {
+        console.error("Failed to paste text from clipboard:", err);
+    }
+});
+
 clearBtn.addEventListener("click", () => {
     inputTxt.value = "";
     outputTxt.value = "";
@@ -208,7 +235,6 @@ copyBtn.addEventListener("click", async () => {
 
         const iconTag = copyBtn.querySelector("i");
         iconTag.className = "fa-solid fa-check text-success";
-
         copyToolTip.show();
 
         setTimeout(() => {
