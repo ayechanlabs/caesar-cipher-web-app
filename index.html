@@ -95,17 +95,17 @@
 
             <div class="w-100 p-3 controls_wrapper">
                 <div class="row align-items-end g-2">
-                    <div class="col-12 col-md-9">
-                        <label for="shiftKey" class="form-label fw-bold mb-1" aria-label="Shift Amount">Shift Amount (1-25):</label>
-                        <input type="number" id="shiftKey" class="form-control" value="3" min="1" max="25">
-                        <div class="mt-2">
-                            <span id="shiftPreview" class="badge text-bg-secondary font-monospace px-2 py-1 fs-6 fw-medium border border-secondary-subtle">A -> D | B -> E | C -> F</span>
+                    <div class="col-12">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <label for="shiftRange" class="form-label fw-bold m-0" aria-label="Shift Amount">Shift Amount (1-25):</label>
+                            <span class="badge text-bg-primary fs-6 font-monospace" id="shiftValueDisplay">3</span>
                         </div>
-                        <!-- <small id="shiftPreview" class="text-muted d-block mt-1 fs-6">A -> D | B -> E | C -> F</small> -->
-                    </div>
-                
-                    <div class="col-12 col-md-3">
-                        <button id="actionBtn" class="btn btn-primary w-100">Encrypt</button>
+
+                        <input type="range" id="shiftRange" class="form-range" value="3" min="1" max="25">
+
+                        <div class="mt-2">
+                            <span id="shiftPreview" class="badge text-bg-secondary font-monospace px-2 py-1 fs-6 fw-medium border border-secondary-subtle">A -&gt; D | B -&gt; E | C -&gt; F</span>
+                        </div>
                     </div>
 
                     <div id="bruteForceContainer" class="d-none mt-3 pt-2 border-top">

@@ -37,8 +37,8 @@ outputTxt = document.querySelector("#outputText"),
 inputBadge = document.querySelector("#inputBadge"),
 outputBadge = document.querySelector("#outputBadge"),
 
-shiftKey = document.querySelector("#shiftKey"),
-actionBtn = document.querySelector("#actionBtn"),
+shiftRange = document.querySelector("#shiftRange"),
+shiftValueDisplay = document.querySelector("#shiftValueDisplay"),
 
 charCount = document.querySelector("#charCount"),
 wordCount = document.querySelector("#wordCount"),
@@ -289,7 +289,7 @@ function updateUI(animate = false) {
         }
     }
 
-    const animatedElements = [inputHeading, outputHeading, actionBtn, labelDecrypt, labelEncrypt];
+    const animatedElements = [inputHeading, outputHeading, labelDecrypt, labelEncrypt];
 
     const applyTextUpdates = () => {
         if (isMobile) {
@@ -334,9 +334,7 @@ function updateUI(animate = false) {
             outputBadge.className = "badge badge-sm rounded-pill text-bg-primary text-white opacity-75";
         }
 
-        actionBtn.textContent = isDecrypt ? "Decrypt" : "Encrypt";
         inputTxt.placeholder = isDecrypt ? "Type encrypted message here..." : "Type message here...";
-
     };
 
     if (animate) {
@@ -353,8 +351,6 @@ function updateUI(animate = false) {
 
     updateShiftPreview();
 }
-
-actionBtn.addEventListener('click', executeCaesarCipher);
 
 inputTxt.addEventListener("input", () => {
     executeCaesarCipher();
