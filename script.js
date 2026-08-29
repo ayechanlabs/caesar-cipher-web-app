@@ -80,7 +80,7 @@ function caesarCipher (originalText, shiftKey, mode) {
 
 function executeCaesarCipher() {
     const plainTxt = inputTxt.value;
-    const shift = parseInt(shiftKey.value);
+    const shift = parseInt(shiftRange.value);
     outputTxt.value = caesarCipher(plainTxt, shift, currentMode);
 
     if (currentMode === "decrypt" && bruteForceToggle && bruteForceToggle.checked) {
@@ -93,7 +93,7 @@ function executeCaesarCipher() {
 function updateShiftPreview() {
     if (!shiftPreview) return;
 
-    let shift = parseInt(shiftKey.value) || 0;
+    let shift = parseInt(shiftRange.value) || 0;
 
     if (currentMode === "decrypt") {
         shift = (26 - (shift % 26)) % 26;
@@ -251,7 +251,8 @@ modeToggle.addEventListener("change", () => {
     inputTxt.value = "";
     outputTxt.value = "";
 
-    shiftKey.value = 3;
+    shiftRange.value = 3;
+    shiftValueDisplay.textContent = shiftRange.value;
 
     countWordCharStats();
 
@@ -358,7 +359,8 @@ inputTxt.addEventListener("input", () => {
     bruteForceDecryption();
 });
 
-shiftKey.addEventListener('input', () => {
+shiftRange.addEventListener('input', () => {
+    shiftValueDisplay.textContent = shiftRange.value;
     executeCaesarCipher();
     updateShiftPreview();
 });
