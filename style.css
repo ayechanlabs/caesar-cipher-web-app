@@ -52,16 +52,6 @@ body {
     border-top-color: var(--bs-border-color);
 }
 
-/* #shiftKey {
-    background-color: transparent !important;
-    color: var(--bs-body-color) !important;
-    border-color: #000000;
-} */
-
-/* [data-bs-theme="dark"] #shiftKey {
-    border-color: var(--bs-border-color);
-} */
-
 #shiftPreview {
     letter-spacing: 0.5px;
     background-color: var(--bs-tertiary-bg) !important;
@@ -239,12 +229,4 @@ body {
         overflow-wrap: break-word;
         word-break: break-word;
     }
-}
-
-@media (min-width: 768px) {
-    /* #actionBtn {
-        height: 62px;
-        font-size: 1.1rem;
-        font-weight: 600;
-    } */
 }
