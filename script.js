@@ -7,21 +7,13 @@ setTheme(savedTheme);
 
 function setTheme(theme) {
     document.documentElement.setAttribute("data-bs-theme", theme);
-
     localStorage.setItem("theme", theme);
-
-    if (theme === "dark") {
-        themeIcon.className = "fa-solid fa-sun";
-    }
-    else {
-        themeIcon.className = "fa-solid fa-moon";
-    }
+    themeIcon.className = theme === "dark" ? "fa-solid fa-sun" : "fa-solid fa-moon";
 }
 
 themeToggleBtn.addEventListener("click", () => {
     const currTheme = document.documentElement.getAttribute("data-bs-theme");
-    const nextTheme = currTheme === "dark" ? "light" : "dark";
-    setTheme(nextTheme);
+    setTheme(currTheme === "dark" ? "light" : "dark");
 })
 
 // Declare All Variables
@@ -83,7 +75,7 @@ function executeCaesarCipher() {
     const shift = parseInt(shiftRange.value);
     outputTxt.value = caesarCipher(plainTxt, shift, currentMode);
 
-    if (currentMode === "decrypt" && bruteForceToggle && bruteForceToggle.checked) {
+    if (currentMode === "decrypt" && bruteForceToggle?.checked) {
         bruteForceDecryption();
     }
 }
@@ -94,7 +86,6 @@ function updateShiftPreview() {
     if (!shiftPreview) return;
 
     let shift = parseInt(shiftRange.value) || 0;
-
     if (currentMode === "decrypt") {
         shift = (26 - (shift % 26)) % 26;
     }
@@ -135,9 +126,12 @@ function bruteForceDecryption() {
             <span class="badge bg-secondary me-2">Shift ${shift}</span>
             <span>${escapeHTML(decryptTxt)}</span>
         </div>
-        <button class="btn btn-sm btn-outline-primary copy-shift-btn" data-text="${escapeHTML(decryptTxt)}" title="Copy Result">
-            <i class="fa-regular fa-copy"></i>
-        </button>
+        <div class="d-flex align-items-center gap-2">
+            <span class="copy-status-msg badge text-bg-success d-none">Copied!</span>
+            <button class="btn btn-sm btn-outline-primary copy-shift-btn" data-text="${escapeHTML(decryptTxt)}" title="Copy Result">
+                <i class="fa-regular fa-copy"></i>
+            </button>
+        </div>
         `;
 
         bruteForceList.appendChild(item);
@@ -145,14 +139,36 @@ function bruteForceDecryption() {
 
     bruteForceList.querySelectorAll(".copy-shift-btn").forEach(btn => {
         btn.addEventListener("click", async (e) => {
-            const textToCopy = e.currentTarget.getAttribute("data-text");
-            await navigator.clipboard.writeText(textToCopy);
 
-            const iconTag = e.currentTarget.querySelector("i");
-            iconTag.className = "fa-solid fa-check text-success";
-            setTimeout(() => {
-                iconTag.className = 'fa-regular fa-copy';
-            }, 1500);
+            const button = e.currentTarget;
+            const textToCopy = e.currentTarget.getAttribute("data-text");
+
+            try {
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    await navigator.clipboard.writeText(textToCopy);
+                } else {
+                    const tempInput = document.createElement("textarea");
+                    tempInput.value = textToCopy;
+
+                    document.body.appendChild(tempInput);
+                    tempInput.select();
+                    document.execCommand("copy");
+                    document.body.removeChild(tempInput);
+                }
+
+                const iconTag = button.querySelector("i");
+                const statusMsg = button.parentElement.querySelector(".copy-status-msg");
+
+                if (iconTag) iconTag.className = "fa-solid fa-check text-success";
+                if (statusMsg) statusMsg.classList.remove("d-none");
+
+                setTimeout(() => {
+                    if (iconTag) iconTag.className = 'fa-regular fa-copy';
+                    if (statusMsg) statusMsg.classList.add("d-none");
+                }, 1500);
+            } catch (err) {
+                console.error("Failed to copy text: ", err);
+            }
         });
     });
 }
@@ -185,7 +201,6 @@ function countWordCharStats() {
     }
 
     if (wordCount) {
-        // Check if the text is not empty after removing outer spaces
         const words = text.trim() ? text.trim().split(/\s+/).length : 0;
         wordCount.textContent = `${words} words`;
     }
@@ -198,10 +213,8 @@ pasteBtn.addEventListener("click", async () => {
         if (!text) return;
 
         inputTxt.value = text;
-
         executeCaesarCipher();
         countWordCharStats();
-        // bruteForceDecryption();
 
         const iconTag = pasteBtn.querySelector("i");
         iconTag.className = "fa-solid fa-check text-success";

@@ -52,15 +52,15 @@ body {
     border-top-color: var(--bs-border-color);
 }
 
-#shiftKey {
+/* #shiftKey {
     background-color: transparent !important;
     color: var(--bs-body-color) !important;
     border-color: #000000;
-}
+} */
 
-[data-bs-theme="dark"] #shiftKey {
+/* [data-bs-theme="dark"] #shiftKey {
     border-color: var(--bs-border-color);
-}
+} */
 
 #shiftPreview {
     letter-spacing: 0.5px;
@@ -98,7 +98,7 @@ body {
 }
 
 .cipher_textarea {
-    min-height: 50vh !important;
+    min-height: 45vh !important;
 }
 
 .cipher_textarea, .cipher_textarea[readonly], .form-control.cipher_textarea, .form-control.cipher_textarea[readonly] {
@@ -191,7 +191,7 @@ body {
     color: #6c757d !important;
 }
 
-#inputHeading, #outputHeading, #actionBtn, #labelDecrypt, #labelEncrypt {
+#inputHeading, #outputHeading, #labelDecrypt, #labelEncrypt {
     transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
 }
 
@@ -242,9 +242,9 @@ body {
 }
 
 @media (min-width: 768px) {
-    #actionBtn {
+    /* #actionBtn {
         height: 62px;
         font-size: 1.1rem;
         font-weight: 600;
-    }
+    } */
 }
