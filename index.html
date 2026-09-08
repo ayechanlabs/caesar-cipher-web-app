@@ -55,7 +55,8 @@
     <!-- Start Body Section for both Encryption & Decryption -->
     <section class="px-3 px-md-0">
         <div class="container d-flex flex-column p-0 cipher_container">
-            <div class="row g-0 w-100 flex-grow-1 flex-column flex-md-row">
+            <div class="row g-0 w-100 flex-grow-1 flex-column flex-md-row position-relative">
+                <!-- Input Column -->
                 <div class="col-12 col-md-6 d-flex flex-column p-0 input_container">
                     <h5 id="inputHeading" class="d-flex align-items-center justify-content-center gap-2 m-0 px-3">
                         <span>Plain Text</span>
@@ -63,6 +64,7 @@
                     </h5>
                     <div class="textarea-wrapper flex-grow-1 position-relative d-flex flex-column">
                         <textarea id="inputText" class="form-control flex-grow-1 cipher_textarea" placeholder="Type message here..." aria-label="Input Text"></textarea>
+                        <!-- Paste and Clear Buttons -->
                         <div class="textarea-actions-group position-absolute top-0 end-0 me-2 mt-2 d-flex align-items-center gap-1">
                             <button type="button" id="pasteBtn" class="textarea-icon-btn" title="Paste text" data-bs-toggle="tooltip" data-bs-trigger="manual" data-bs-title="Pasted!">
                                 <i class="fa-regular fa-paste"></i>
@@ -79,6 +81,12 @@
                     </div>
                 </div>
 
+                <!-- Center Swap Button Overlay -->
+                <button type="button" id="swapBtn" class="center-swap-btn" title="Swap input and output">
+                    <i class="fa-solid fa-arrows-rotate"></i>
+                </button>
+
+                <!-- Output Column -->
                 <div class="col-12 col-md-6 d-flex flex-column p-0 output_container">
                     <h5 id="outputHeading" class="d-flex align-items-center justify-content-center gap-2 m-0 px-3">
                         <span>Encrypted</span>
@@ -99,6 +107,15 @@
                         <div class="d-flex justify-content-between align-items-center mb-1">
                             <label for="shiftRange" class="form-label fw-bold m-0" aria-label="Shift Amount">Shift Amount (1-25):</label>
                             <span class="badge text-bg-primary fs-6 font-monospace" id="shiftValueDisplay">3</span>
+                        </div>
+
+                        <div class="d-flex align-items-center gap-2 mt-2">
+                            <button type="button" id="randomShiftBtn" class="btn btn-sm btn-outline-primary">
+                                <i class="fa-solid fa-dice"></i> Random Key
+                            </button>
+                            <button type="button" id="autoDetectBtn" class="btn btn-sm btn-outline-success">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i> Auto-Crack (Frequency)
+                            </button>
                         </div>
 
                         <input type="range" id="shiftRange" class="form-range" value="3" min="1" max="25">

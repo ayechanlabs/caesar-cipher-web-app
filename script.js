@@ -38,6 +38,10 @@ pasteBtn = document.querySelector("#pasteBtn"),
 clearBtn = document.querySelector("#clearBtn"),
 copyBtn = document.querySelector("#copyBtn"),
 
+swapBtn = document.querySelector("#swapBtn"),
+randomShiftBtn = document.querySelector("#randomShiftBtn"),
+autoDetectBtn = document.querySelector("#autoDetectBtn"),
+
 shiftPreview = document.querySelector("#shiftPreview"),
 
 bruteForceWrapper = document.querySelector("#bruteForceContainer"), 
@@ -171,6 +175,73 @@ function bruteForceDecryption() {
             }
         });
     });
+}
+
+function analyzeFrequency() {
+    const text = inputTxt.value.toUpperCase().replace(/[^A-Z]/g, "");
+    if (!text.length) return 1;
+
+    const counts = {};
+    for (const char of text) {
+        counts[char] = (counts[char] || 0) + 1;
+    }
+
+    let mostFrequentChar = "E";
+    let maxCount = 0;
+    for (const char in counts) {
+        if (counts[char] > maxCount) {
+            maxCount = counts[char];
+            mostFrequentChar = char;
+        }
+    }
+
+    const eCode = "E".charCodeAt(0);
+    const maxCode = mostFrequentChar.charCodeAt(0);
+    let guessedShift = (maxCode - eCode + 26) % 26;
+
+    return guessedShift === 0 ? 25 : guessedShift;
+}
+
+function autoDetectKey() {
+    const detectShift = analyzeFrequency();
+    shiftRange.value = detectShift
+    shiftValueDisplay.textContent = detectShift;
+    executeCaesarCipher();
+    updateShiftPreview();
+}
+
+if (autoDetectBtn) {
+    autoDetectBtn.addEventListener("click", autoDetectKey);
+}
+
+function generateRandomShift() {
+    const randomShift = Math.floor(Math.random() * 25) + 1;
+    shiftRange.value = randomShift;
+    shiftValueDisplay.textContent = randomShift;
+    executeCaesarCipher();
+    updateShiftPreview();
+}
+
+if (randomShiftBtn) {
+    randomShiftBtn.addEventListener("click", generateRandomShift);
+}
+
+function swapInputOutput() {
+    const temp = inputTxt.value;
+    inputTxt.value = outputTxt.value;
+    outputTxt.value = temp;
+
+    modeToggle.checked = !modeToggle.checked;
+    // modeToggle.dispatchEvent(new Event("change"));
+    currentMode = modeToggle.checked ? "decrypt" : "encrypt";
+
+    updateUI(true);
+    executeCaesarCipher();
+    countWordCharStats();
+}
+
+if (swapBtn) {
+    swapBtn.addEventListener("click", swapInputOutput);
 }
 
 function escapeHTML(str) {

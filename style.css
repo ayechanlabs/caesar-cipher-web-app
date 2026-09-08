@@ -201,6 +201,34 @@ body {
     transition: background-color 0.15s ease;
 }
 
+.center-swap-btn {
+    width: 32px;
+    height: 32px;
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
+
+    border-radius: 50%;
+    border: 1px solid var(--bs-border-color);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: absolute;
+    top: 25px;
+    left: 50%;
+
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
+
+.center-swap-btn:hover {
+    transform: translate(-50%, -50%) rotate(180deg);
+    background-color: var(--bs-tertiary-bg);
+}
+
 @media (max-width: 430px) {
     #labelEncrypt {
         display: none !important;
@@ -228,5 +256,9 @@ body {
 
         overflow-wrap: break-word;
         word-break: break-word;
+    }
+
+    .center-swap-btn {
+        top: 22px;
     }
 }
