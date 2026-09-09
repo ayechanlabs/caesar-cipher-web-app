@@ -3,18 +3,32 @@ const themeToggleBtn = document.querySelector("#themeToggleBtn");
 const themeIcon = document.querySelector("#themeIcon");
 
 const savedTheme = localStorage.getItem("theme") || "light";
-setTheme(savedTheme);
+setTheme(savedTheme, false);
 
-function setTheme(theme) {
+function setTheme(theme, animateIcon = true) {
     document.documentElement.setAttribute("data-bs-theme", theme);
     localStorage.setItem("theme", theme);
-    themeIcon.className = theme === "dark" ? "fa-solid fa-sun" : "fa-solid fa-moon";
+
+    if (animateIcon) {
+        themeIcon.classList.add("icon-spin");
+
+        setTimeout(() => {
+            themeIcon.className = theme === "dark" ? "fa-solid fa-sun" : "fa-solid fa-moon";
+        }, 150);
+
+        setTimeout(() => {
+            themeIcon.classList.remove("icon-spin");
+        }, 400);
+    }
+    else {
+        themeIcon.className = theme === "dark" ? "fa-solid fa-sun" : "fa-solid fa-moon";
+    }
 }
 
 themeToggleBtn.addEventListener("click", () => {
     const currTheme = document.documentElement.getAttribute("data-bs-theme");
-    setTheme(currTheme === "dark" ? "light" : "dark");
-})
+    setTheme(currTheme === "dark" ? "light" : "dark", true);
+});
 
 // Declare All Variables
 const 
