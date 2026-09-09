@@ -191,43 +191,6 @@ function bruteForceDecryption() {
     });
 }
 
-function analyzeFrequency() {
-    const text = inputTxt.value.toUpperCase().replace(/[^A-Z]/g, "");
-    if (!text.length) return 1;
-
-    const counts = {};
-    for (const char of text) {
-        counts[char] = (counts[char] || 0) + 1;
-    }
-
-    let mostFrequentChar = "E";
-    let maxCount = 0;
-    for (const char in counts) {
-        if (counts[char] > maxCount) {
-            maxCount = counts[char];
-            mostFrequentChar = char;
-        }
-    }
-
-    const eCode = "E".charCodeAt(0);
-    const maxCode = mostFrequentChar.charCodeAt(0);
-    let guessedShift = (maxCode - eCode + 26) % 26;
-
-    return guessedShift === 0 ? 25 : guessedShift;
-}
-
-function autoDetectKey() {
-    const detectShift = analyzeFrequency();
-    shiftRange.value = detectShift
-    shiftValueDisplay.textContent = detectShift;
-    executeCaesarCipher();
-    updateShiftPreview();
-}
-
-if (autoDetectBtn) {
-    autoDetectBtn.addEventListener("click", autoDetectKey);
-}
-
 function generateRandomShift() {
     const randomShift = Math.floor(Math.random() * 25) + 1;
     shiftRange.value = randomShift;
@@ -246,7 +209,6 @@ function swapInputOutput() {
     outputTxt.value = temp;
 
     modeToggle.checked = !modeToggle.checked;
-    // modeToggle.dispatchEvent(new Event("change"));
     currentMode = modeToggle.checked ? "decrypt" : "encrypt";
 
     updateUI(true);
