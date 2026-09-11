@@ -54,7 +54,6 @@ copyBtn = document.querySelector("#copyBtn"),
 
 swapBtn = document.querySelector("#swapBtn"),
 randomShiftBtn = document.querySelector("#randomShiftBtn"),
-autoDetectBtn = document.querySelector("#autoDetectBtn"),
 
 shiftPreview = document.querySelector("#shiftPreview"),
 
