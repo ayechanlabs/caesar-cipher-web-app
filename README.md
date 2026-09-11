@@ -36,3 +36,47 @@ An interactive, responsive web application for real-time Caesar Cipher encryptio
 
 ---
 
+## 🧮 How It Works
+
+The Caesar Cipher is a classic substitution cipher where each letter in the plaintext is shifted by a fixed number of positions down the alphabet:
+
+- **Encryption Formula:**  
+  $$E_n(x) = (x + n) \pmod{26}$$
+- **Decryption Formula:**  
+  $$D_n(x) = (x - n) \pmod{26}$$
+
+*Where $x$ is the character index (0–25) and $n$ is the shift key.*
+
+
+## 🛠️ Getting Started
+
+### Prerequisites
+No node modules or build tools are required—just a web browser!
+
+### Local Setup
+
+**Clone the repository:**
+   ```bash
+   git clone https://github.com/ayechanlabs/caesar-cipher-web-app.git
+
+   cd caesar-cipher-web-app
+   ```
+---
+
+### Code / Project Structure
+
+Adding a clean directory map shows strong organizational skills:
+
+```markdown
+📂 Project Structure
+
+caesar-cipher-web-app/
+├── img/
+│   └── devops.png
+├── index.html
+├── script.js
+├── style.css
+├── particles.json
+├── LICENSE
+└── README.md
+```
